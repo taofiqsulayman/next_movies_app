@@ -3,7 +3,7 @@ interface TrailerIframeProps {
 }
 
 const iframeStyle = {
-  height: "45vh",
+  height: "50vh",
   width: "100%",
 };
 

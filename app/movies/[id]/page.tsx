@@ -29,10 +29,6 @@ const MovieDetailsPage = async ({ params } : MovieDetailsPageProps) => {
   console.log(movie);
 
   return (
-    // <div className='container-md my-2 py-2'>
-    //   Inside details page
-    // </div>
-
     <div className="container mt-5">
       <TrailerIframe trailerKey={getMovieTrailer(movie.videos.results)} />
       <div
@@ -52,7 +48,7 @@ const MovieDetailsPage = async ({ params } : MovieDetailsPageProps) => {
         </div>
       </div>
 
-      <div className="row g-md-3">
+      <div className="row g-md-3 mt-2">
         <div className="col-md-6">
           <Image
             src={`${IMAGE_BASE_URL}${movie.poster_path}`}
@@ -64,7 +60,7 @@ const MovieDetailsPage = async ({ params } : MovieDetailsPageProps) => {
           />
         </div>
         <div className="col-md-6">
-          <div className="text-4xl font-weight-bold mb-4">{movie?.title}</div>
+          <h2 className="text-2xl font-weight-bold mb-4">{movie?.title}</h2>
           <div className="d-flex flex-wrap mb-2 gap-2">
             {movie?.genres &&
               movie.genres.map((genre: any) => (

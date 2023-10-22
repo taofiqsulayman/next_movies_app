@@ -5,7 +5,7 @@ const Header = () => {
     <div>
       <nav className="navbar bg-dark border-bottom border-body">
         <div className="container-md">
-          <a className="navbar-brand text-white">Movies DB App</a>
+          <a href="/" className="navbar-brand text-white">Movies DB App</a>
           <form className="d-flex" role="search">
             <input
               className="form-control me-2"
