@@ -1,8 +1,8 @@
-import { getMovieDetails } from '@/app/utils/requests';
-import React from 'react'
-import Casts from '@/app/components/Casts';
-import Image from 'next/image';
-import TrailerIframe from '@/app/components/TrailerIFrame';
+import { getMovieDetails } from "@/app/utils/requests";
+import React from "react";
+import Casts from "@/app/components/Casts";
+import Image from "next/image";
+import TrailerIframe from "@/app/components/TrailerIframe";
 
 interface MovieDetailsPageProps {
   params: {
@@ -23,30 +23,32 @@ const getMovieTrailer = (videos: Video[] = []) => {
 const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
 const BACKDROP_BASE_URL = process.env.NEXT_PUBLIC_BACKDROP_IMAGE_BASE_URL;
 
-const MovieDetailsPage = async ({ params } : MovieDetailsPageProps) => {
+const getBackdropUrl = (backdropPath: string) => {
+  return backdropPath
+    ? `${BACKDROP_BASE_URL}/${backdropPath}`
+    : "https://via.placeholder.com/300x500";
+}
+
+const MovieDetailsPage = async ({ params }: MovieDetailsPageProps) => {
   const movieId = params.id;
   const movie = await getMovieDetails(movieId);
-  console.log(movie);
-
   return (
     <div className="container mt-5">
       <TrailerIframe trailerKey={getMovieTrailer(movie.videos.results)} />
-      <div
-        className={`${
-          !getMovieTrailer(movie.video.results) ? "d-none" : ""
-        } relative overflow-hidden rounded-lg mb-4`}
-      >
-        <img
-          className="w-100 h-96 object-center object-cover"
-          src={`${BACKDROP_BASE_URL}${movie.backdrop_path}`}
-          alt="poster"
-        />
-        <div className="position-absolute bottom-0 start-0 p-4 bg-secondary bg-opacity-70 backdrop-blur-lg">
-          <div className="text-white text-3xl font-bold mb-2">
-            {movie?.title}
+      {!getMovieTrailer(movie.videos.results) && (
+        <div className="position-relative overflow-hidden rounded-lg mb-4">
+          <img
+            className="object-center object-cover"
+            src={getBackdropUrl(movie?.backdrop_path)}
+            alt={movie?.title}
+            style={{ height: "35vh", width: "100%", objectFit: "cover"}}
+          />
+
+          <div className="alert alert-warning" role="alert">
+            No trailer available
           </div>
         </div>
-      </div>
+      )}
 
       <div className="row g-md-3 mt-2">
         <div className="col-md-6">
@@ -93,13 +95,12 @@ const MovieDetailsPage = async ({ params } : MovieDetailsPageProps) => {
 
           <div className="mt-4">
             <h2 className="text-2xl font-weight-bold">Cast</h2>
-            <Casts castList={movie?.credits?.cast} />
+            <Casts casts={movie?.credits?.cast} />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default MovieDetailsPage
-
+export default MovieDetailsPage;
