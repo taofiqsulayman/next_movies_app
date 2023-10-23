@@ -36,8 +36,8 @@ import Image from "next/image";
                   <Image
                     alt={cast.name}
                     src={getCastImageUrl(cast.profile_path)}
-                    width={64}
-                    height={68}
+                    width={68}
+                    height={76}
                     className="rounded-circle"
                   />
                   <p className="text-lg font-weight-bold mt-2">{cast.name}</p>
